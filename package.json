@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Vsbbus/website_VsbBus.git"
+    "url": "git+https://github.com/selva274/website_VsbBus.git"
   },
   "author": "SS brothers",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Vsbbus/website_VsbBus/issues"
+    "url": "https://github.com/selva274/website_VsbBus.git"
   },
-  "homepage": "https://github.com/Vsbbus/website_VsbBus#readme",
+  "homepage": "https://github.com/selva274/website_VsbBus.git",
   "dependencies": {
     "body-parser": "^1.20.2",
     "cookie-session": "^2.0.0",
