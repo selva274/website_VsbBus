@@ -41,14 +41,6 @@ app.get( '/google/callback',
 
 // Success
 app.get('/success' , (req , res) => {
-
-	
-	async function run(){
-		const newuser=new GoogleModel({email:`${req.user.email}`});
-		await newuser.save();
-	}
-    run();
-
 	res.redirect("/dashboard")
 });
 
