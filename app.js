@@ -75,8 +75,8 @@ function isLoggedIn(req,res,next){
 
 
 
-app.get('https://successful-frog-gilet.cyclic.app/auth/facebook',passport.authenticate('facebook',{scope:'email'}))
-app.get('https://successful-frog-gilet.cyclic.app/facebook/callback',passport.authenticate('facebook',{successRedirect:"/profile",failureRedirect:'/error'}))
+app.get('/auth/facebook',passport.authenticate('facebook',{scope:'email'}))
+app.get('/facebook/callback',passport.authenticate('facebook',{successRedirect:"/profile",failureRedirect:'/error'}))
 
 app.get("/profile",isLoggedIn,(req,res)=>{
     res.redirect('/dashboard');
