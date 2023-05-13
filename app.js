@@ -54,6 +54,10 @@ app.get('/failure' , (req , res) => {
 app.post("/dashboard",(req,res)=>{
     res.send("<h1 style='text-align:center'>Welcome to Our website</h1>")
 })
+app.get("/dashboard",(req,res)=>{
+    res.send("<h1 style='text-align:center'>Welcome to Our website</h1>")
+})
+
 
 app.listen(3000,()=>{
     console.log('sever connected!');
