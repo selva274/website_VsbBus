@@ -1,0 +1,22 @@
+{
+  "name": "vsb_bus",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vsbbus/website_VsbBus.git"
+  },
+  "author": "SS brothers",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Vsbbus/website_VsbBus/issues"
+  },
+  "homepage": "https://github.com/Vsbbus/website_VsbBus#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
