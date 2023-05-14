@@ -2,8 +2,7 @@ const mongoose=require('mongoose');
 const server=mongoose.connect(
   "mongodb+srv://selvakumard274:vsbbus123@busweb.ibkkn8h.mongodb.net/?retryWrites=true&w=majority", 
   {
-    useNewUrlParser: true,
-    
+    useNewUrlParser: true,    
     useUnifiedTopology: true
   }
 ).then(()=>{
