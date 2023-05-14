@@ -3,14 +3,26 @@ const ejs=require('ejs');
 const bodyParser=require('body-parser');
 const cookieSession=require('cookie-session');
 const facebookStrategy=require('passport-facebook').Strategy;
-const passport=require('passport')
+const passport=require('passport');
 
+//databse
+const mongoose = require("mongoose");
+const server=require("./server");
+
+const userModel = require("./models");
+const google_schema=require('./google_model');
+const UserSchema=require('./models');	
+const { error } = require('console');
+const GoogleModel = mongoose.model('google', google_schema);
+const UserModel = mongoose.model('User', UserSchema);
 const app=express()
 require('./passport-setup');
 app.use(express.static('stylesheet'));
 app.set('view engine','ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.urlencoded({extended:true}))
+app.use(express.urlencoded({extended:true}));
+
+//http protocol
 
 app.get("/",(req,res)=>{
     res.render('login')
@@ -41,10 +53,15 @@ app.get( '/google/callback',
 );
 
 // Success
-app.get('/success' , (req , res) => {
+app.get('/success' , (req , res) => {	
+	async function run(){
+		const newuser=new GoogleModel({email:`${req.user.email}`});
+		await newuser.save();
+	}
+    run();
+
 	res.redirect("/dashboard")
 });
-
 // failure
 app.get('/failure' , (req , res) => {
 	res.send("<h1>404 Error</h1>");
@@ -101,9 +118,17 @@ passport.deserializeUser(function(id,done){
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-app.post("/dashboard",(req,res)=>{
-    res.send("<h1 style='text-align:center'>Welcome to Our website</h1>")
-})
+app.post("/dashboard",async(req,res)=>{
+	user_email=req.body.email;
+	user_password=req.body.password;
+	const docs = await UserModel.find({email:user_email });
+	auth_paasword=docs.map(doc => doc.password).sort()[0];
+	if(user_password==auth_paasword){
+		res.redirect('/dashboard');
+	}else{
+		res.redirect('/');
+	}
+	  });
 app.get("/dashboard",(req,res)=>{
     res.send("<h1 style='text-align:center'>Welcome to Our website</h1>")
 })
