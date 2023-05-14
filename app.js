@@ -12,9 +12,11 @@ const server=require("./server");
 const userModel = require("./models");
 const google_schema=require('./google_model');
 const UserSchema=require('./models');	
+const bus_names_Schema=require('./bus_names');
 const { error } = require('console');
 const GoogleModel = mongoose.model('google', google_schema);
 const UserModel = mongoose.model('User', UserSchema);
+const bus_names=mongoose.model('bus_name',bus_names_Schema);
 const app=express()
 require('./passport-setup');
 app.use(express.static('stylesheet'));
@@ -126,13 +128,43 @@ app.post("/dashboard",async(req,res)=>{
 	if(user_password==auth_paasword){
 		res.redirect('/dashboard');
 	}else{
-		res.redirect('/');
+		res.redirect('/login')
 	}
 	  });
-app.get("/dashboard",(req,res)=>{
-    res.send("<h1 style='text-align:center'>Welcome to Our website</h1>")
-})
 
+
+
+
+
+
+
+app.post("/add_user",(req,res)=>{    
+    async function run(){
+		const newuser=new UserModel(req.body);
+		await newuser.save();
+	}
+    run();
+    res.redirect('/dashboard');
+});
+// app.get("/dashboard",(req,res)=>{
+// 	const result=bus_names.find();
+// 	console.log(res);
+//    res.render('dashboard')
+// })
+
+app.get('/dashboard', async(req, res)=> {    
+	const result = await bus_names.find()	
+	// const resss=result[0];
+	 const {names,timings}=await result[0];
+	
+	
+	res.render('dashboard',{busses:names,timing:timings});
+	
+});
+
+app.get('/register',(req,res)=>{
+	res.render('register')
+})
 
 app.listen(3000,()=>{
     console.log('sever connected!');
